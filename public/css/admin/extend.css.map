@@ -1,0 +1,1 @@
+{"version":3,"file":"css/admin/extend.css","mappings":"AAAA,mBACE,qBACF,C","sources":["webpack:///./extend.scss"],"sourcesContent":[".table > tbody > tr > td {\n  vertical-align: middle;\n}"],"names":[],"sourceRoot":""}

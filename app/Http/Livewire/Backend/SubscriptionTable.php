@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Http\Livewire\Backend;
+
+use App\Models\Backend\IncomeExpense;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+
+/**
+ * Class RolesTable.
+ */
+class SubscriptionTable extends DataTableComponent
+{
+
+    public array $perPageAccepted = [10, 20, 50, 100];
+    public bool $perPageAll = false;
+    public string $defaultSortColumn = 'id';
+    public string $defaultSortDirection = 'desc';
+
+    protected string $pageName = 'income_expense';
+    protected string $tableName = 'income_expense';
+
+    public function query(): Builder
+    {
+        return IncomeExpense::with('account', 'payment', 'getMember', 'user', 'expense')->where('expense_type', 'subscription');
+    }
+
+    public function columns(): array
+    {
+        $this->index = $this->page > 1 ? ($this->page - 1) * $this->perPage : 0;
+        return [
+            Column::make(__('NO.'), 'no')
+                ->addClass('text-left')
+                ->format(function () {
+                    return ++$this->index;
+                }),
+            Column::make(__('Subscription Date'), 'expense_date')
+                ->searchable()
+                ->format(function ($value) {
+                    return date('d-m-Y', strtotime($value));
+                }),
+            Column::make(__('Ac No'), 'account.account_number')
+                ->searchable()
+                ->format(function ($row, $value) {
+                    return '<a href="' . route('admin.transection-accounts.show', $row->account_id) . '">' . $value . '</a>';
+                })
+                ->asHtml(),
+            Column::make(__('Amount'), 'amount')
+                ->searchable()
+                ->format(function ($value) {
+                    return number_format($value, 2, '.', ',');
+                }),
+            Column::make(__('Payment Method'), 'payment_method')
+                ->searchable(),
+            Column::make(__('Payer'), 'getMember.record_id')
+                ->searchable()
+                ->format(function ($row, $value) {
+
+                    return '<a href="' . route('admin.member.show', $row->payer) . '">' . $value . '</a>';
+                })
+                ->asHtml(),
+            Column::make(__('Reference'), 'reference')
+                ->searchable()->format(function ($value) {
+                    if (!$value) {
+                        return '<span>N/A</span>';;
+                    }
+                    return $value;
+                })
+                ->asHtml(),
+            Column::make(__('Attachment'), 'voucher')
+                ->searchable()
+                ->format(function ($value) {
+                    if ($value) {
+                        return '<a href="' . asset('uploads/users/' . $value) . '"><i class="fas fa-file-alt" style="font-size:24px" aria-hidden="true"></i></a>';
+                    }
+                    return '<span>No File</span>';
+                })
+                ->asHtml(),
+            Column::make('Actions')
+                ->addClass('text-center')
+                ->format(function ($row) {
+                    return view('backend.content.subscription.includes.actions')->with(['subscription' => $row]);
+                }),
+        ];
+    }
+}

@@ -14,6 +14,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('uploads/' . get_setting('fabicon')) }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+
     @yield('meta')
 
     @stack('before-styles')
@@ -51,6 +53,10 @@
     <script src="{{ mix('js/frontend.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src={{ asset('js/sweetalert.js') }}></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+
     @stack('after-scripts')
     @include('Alerts::alerts')
 </body>

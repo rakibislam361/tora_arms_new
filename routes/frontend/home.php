@@ -33,5 +33,7 @@ Route::get('terms', [TermsController::class, 'index'])
 Route::get("agent/create", [AgentController::class, "create"])->name("agent.register");
 Route::post("agent/store", [AgentController::class, "store"])->name("agent.store");
 
-Route::get("member/create", [MemberController::class, "create"])->name("member.create");
-Route::post("/member/store", [MemberController::class, "store"])->name("member.store");
+// Route::get("member/create", [MemberController::class, "create"])->name("member.create");
+// Route::post("/member/store", [MemberController::class, "store"])->name("member.store");
+
+Route::resource("member", MemberController::class);

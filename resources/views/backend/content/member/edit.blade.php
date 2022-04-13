@@ -42,32 +42,6 @@
 
                                 <div class="col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="first_name" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" name="first_name" id="first_name"
-                                            value="{{ $member->user->first_name }}" placeholder="First name">
-                                        @if ($errors->has('first_name'))
-                                            <p class="text-danger">
-                                                <small>{{ $errors->first('first_name') }}</small>
-                                            </p>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="last_name" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name"
-                                            value="{{ $member->user->last_name }}" placeholder="First name">
-                                        @if ($errors->has('last_name'))
-                                            <p class="text-danger">
-                                                <small>{{ $errors->first('last_name') }}</small>
-                                            </p>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12">
-                                    <div class="form-group">
                                         <label for="father_name" class="form-label">Father's name <sup
                                                 style="color:red">★</sup></label>
                                         <input type="text" class="form-control" name="father_name" id="father_name"
@@ -85,7 +59,7 @@
                                     <label for="mother_name" class="form-label">Mother's name <sup
                                             style="color:red">★</sup></label>
                                     <input type="text" class="form-control" name="mother_name" id="mother_name"
-                                        value="{{ old('mother_name', $member->name_bn) }}" placeholder="Mother's Name">
+                                        value="{{ $member->mother_name }}" placeholder="Mother's Name">
                                     @if ($errors->has('mother_name'))
                                         <p class="text-danger">
                                             <small>{{ $errors->first('mother_name') }}</small>
@@ -94,49 +68,22 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12">
+                                    <label for="spouse_name" class="form-label">Spouse name</label>
+                                    <input type="text" class="form-control" name="spouse_name" id="spouse_name"
+                                        value={{ $member->spouse_name ?? '' }} placeholder="Spouse name">
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="religion" class="form-label">Religion <sup
+                                        <label for="position_desierd" class="form-label">Position desierd <sup
                                                 style="color:red">★</sup></label>
-                                        <select name="religion" id="religion" class="form-control">
-                                            <option value="islam" {{ $member->religion == 'islam' ? 'selected' : '' }}>
-                                                Islam</option>
-                                            <option value="christianity"
-                                                {{ $member->religion == 'christianity' ? 'selected' : '' }}>
-                                                Christianity</option>
-                                            <option value="hinduism"
-                                                {{ $member->religion == 'hinduism' ? 'selected' : '' }}>
-                                                Hinduism</option>
-                                            <option value="others" {{ $member->religion == 'others' ? 'selected' : '' }}>
-                                                Others</option>
-                                        </select>
+                                        {{ html()->select('position_desierd', collect($positions), $member->position_desierd)->class('form-control') }}
+                                        @if ($errors->has('position_desierd'))
+                                            <p class="text-danger">
+                                                <small>{{ $errors->first('position_desierd') }}</small>
+                                            </p>
+                                        @endif
                                     </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12">
-                                    <label for="religion" class="form-label">Marital status <sup
-                                            style="color:red">★</sup></label>
-                                    {{ html()->select('marital_status',['' => 'Select', 'married' => 'Married', 'unmarried' => 'Unmarried'],old('marital_status', $member->marital_status))->class('form-control') }}
-                                    @if ($errors->has('marital_status'))
-                                        <p class="text-danger">
-                                            <small>{{ $errors->first('marital_status') }}</small>
-                                        </p>
-                                    @endif
-                                </div>
-
-                                <div class="col-md-4 col-sm-12">
-                                    <label for="personal" class="form-label">Phone<sup style="color:red">★</sup></label>
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">+88</div>
-                                        </div>
-                                        <input type="text" class="form-control" name="phone" id="phon_validation"
-                                            value="{{ old('phone', $member->user->phone) }}" placeholder="">
-                                    </div>
-                                    @if ($errors->has('phone'))
-                                        <p class="text-danger">
-                                            <small>{{ $errors->first('phone') }}</small>
-                                        </p>
-                                    @endif
                                 </div>
 
                                 <div class="col-md-4 col-sm-12">
@@ -153,60 +100,80 @@
                                     @endif
                                 </div>
 
-                                <div class="col-md-12 bg-light text-justify mt-2 p-1 mb-2 px-4">
-                                    <h6>Educational Qualification:</h6>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="nid_no" class="form-label">NID no: / Birth certificate <sup
+                                            style="color:red">★</sup></label>
+                                    <input type="number" class="form-control" name="nid_no" id="nid_no"
+                                        value="{{ $member->nid_no }}" placeholder="NID">
+                                    @if ($errors->has('nid_no'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('nid_no') }}</small>
+                                        </p>
+                                    @endif
                                 </div>
 
-                                @forelse ($degree_name as $key => $degree)
-                                    <div class="col-md-4 col-sm-12">
-                                        @if ($key == 0)
-                                            <label for="degree_name" class="form-label">Degree Name
-                                            </label>
-                                        @endif
-                                        <input type="text" class="form-control" name="education[0][degree_name]"
-                                            placeholder="Degree name" value="{{ $degree->degree_name ?? '' }}">
-                                        @if ($errors->has('degree_name'))
-                                            <p class="text-danger">
-                                                <small>{{ $errors->first('degree_name') }}</small>
-                                            </p>
-                                        @endif
-                                    </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="religion" class="form-label">Gender <sup
+                                            style="color:red">★</sup></label>
+                                    {{ html()->select('gender', ['' => 'Select', 'male' => 'male', 'female' => 'female'], $member->gender)->class('form-control') }}
+                                    @if ($errors->has('gender'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('gender') }}</small>
+                                        </p>
+                                    @endif
+                                </div>
 
-                                    <div class="col-md-3 col-sm-12">
-                                        <div class="form-group">
-                                            @if ($key == 0)
-                                                <label for="grade" class="form-label">Grade</label>
-                                            @endif
-                                            <input type="text" class="form-control exam_grade" name="education[0][grade]"
-                                                id="grade" placeholder="4.5" value="{{ $degree->grade ?? '' }}">
-                                            @if ($errors->has('grade'))
-                                                <p class="text-danger">
-                                                    <small>{{ $errors->first('grade') }}</small>
-                                                </p>
-                                            @endif
+                                <div class="col-md-12 bg-light text-justify mt-4 mb-3">
+                                    <label class="mt-1">Contact number</h6>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="personal" class="form-label">Phone number (personal) <sup
+                                            style="color:red">★</sup></label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">+88</div>
                                         </div>
+                                        <input type="text" class="form-control phon_validation" name="phone"
+                                            value="{{ $member->user->phone }}" placeholder="">
                                     </div>
-
-                                    <div class="col-md-3 col-sm-12">
-                                        @if ($key == 0)
-                                            <label for="elementary_passing_year" class="form-label">Year
-                                                Graduated </label>
-                                        @endif
-                                        {{ html()->select('education[0][elementary_passing_year]',collect($years)->prepend('Select', ''),old('elementary_passing_year[]', $degree->elementary_passing_year ?? ''),get_step_value('step1', 'elementary_passing_year[]'))->class('form-control')->id('elementary_passing_year[]') }}
-                                        @if ($errors->has('elementary_passing_year'))
-                                            <p class="text-danger">
-                                                <small>{{ $errors->first('elementary_passing_year') }}</small>
-                                            </p>
-                                        @endif
-                                    </div>
-                                @empty
-                                @endforelse
-                                <div class="col-md-2 col-sm-12 {{ $key == 0 ? 'mt-4' : '' }}">
-                                    <button type="button" class="btn btn-sm btn-info" onclick="education_fields();">Add
-                                        more</button>
+                                    @if ($errors->has('phone'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('phone') }}</small>
+                                        </p>
+                                    @endif
                                 </div>
-                                <div class="col-md-12" id="education_fields">
 
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="phone_father" class="form-label">Phone number (father)</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">+88</div>
+                                        </div>
+                                        <input type="text" class="form-control phon_validation" name="phone_father"
+                                            value="{{ $member->phone_father }}" placeholder="">
+                                    </div>
+                                    @if ($errors->has('phone_father'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('phone_father') }}</small>
+                                        </p>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="phone_others" class="form-label">Phone number (others)</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">+88</div>
+                                        </div>
+                                        <input type="text" class="form-control phon_validation" name="phone_others"
+                                            value="{{ $member->phone_others }}" placeholder="">
+                                    </div>
+                                    @if ($errors->has('phone_others'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('phone_others') }}</small>
+                                        </p>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-12 bg-light text-justify mt-2 p-1 mb-2 px-4">
@@ -373,14 +340,124 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 bg-light text-justify mt-5 p-1 mb-2 px-4">
+                                    <h6>Educational Qualification:</h6>
+                                </div>
+
+                                @forelse ($degree_name as $key => $degree)
+                                    <div class="col-md-4 col-sm-12">
+                                        @if ($key == 0)
+                                            <label for="degree_name" class="form-label">Degree Name
+                                            </label>
+                                        @endif
+                                        <input type="text" class="form-control" name="education[0][degree_name]"
+                                            placeholder="Degree name" value="{{ $degree->degree_name ?? '' }}">
+                                        @if ($errors->has('degree_name'))
+                                            <p class="text-danger">
+                                                <small>{{ $errors->first('degree_name') }}</small>
+                                            </p>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-12">
+                                        <div class="form-group">
+                                            @if ($key == 0)
+                                                <label for="grade" class="form-label">Grade</label>
+                                            @endif
+                                            <input type="text" class="form-control exam_grade" name="education[0][grade]"
+                                                id="grade" placeholder="4.5" value="{{ $degree->grade ?? '' }}">
+                                            @if ($errors->has('grade'))
+                                                <p class="text-danger">
+                                                    <small>{{ $errors->first('grade') }}</small>
+                                                </p>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-12">
+                                        @if ($key == 0)
+                                            <label for="elementary_passing_year" class="form-label">Year
+                                                Graduated </label>
+                                        @endif
+                                        {{ html()->select('education[0][elementary_passing_year]',collect($years)->prepend('Select', ''),old('elementary_passing_year[]', $degree->elementary_passing_year ?? ''),get_step_value('step1', 'elementary_passing_year[]'))->class('form-control')->id('elementary_passing_year[]') }}
+                                        @if ($errors->has('elementary_passing_year'))
+                                            <p class="text-danger">
+                                                <small>{{ $errors->first('elementary_passing_year') }}</small>
+                                            </p>
+                                        @endif
+                                    </div>
+                                @empty
+                                @endforelse
+                                <div class="col-md-2 col-sm-12 {{ $key == 0 ? 'mt-4' : '' }}">
+                                    <button type="button" class="btn btn-sm btn-info" onclick="education_fields();">Add
+                                        more</button>
+                                </div>
+                                <div class="col-md-12" id="education_fields">
+
+                                </div>
+
+                                <div class="col-md-12 bg-light text-justify mt-4 mb-4">
+                                    <label class="mt-1">Technical Qualification:</h6>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="technical_qualification_institute_name"
+                                        class="form-label">Technical:</label>
+                                    <textarea type="text" class="form-control" name="technical_qualification_institute_name"
+                                        id="technical_qualification_institute_name"
+                                        value="{{ $member->technical_qualification_institute_name }}"
+                                        placeholder="Enter technical qualification details" cols="30"
+                                        rows="5"></textarea>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="other_qualification_institute_name" class="form-label">Other's:</label>
+                                    <textarea type="text" class="form-control" name="other_qualification_institute_name"
+                                        id="other_qualification_institute_name"
+                                        value="{{ $member->other_qualification_institute_name }}"
+                                        placeholder="Enter qualification details" cols="30" rows="5"></textarea>
+                                </div>
+
+                                <div class="col-md-12 bg-light text-justify mt-4 mb-4">
+                                    <label class="mt-1">Police Clearance details</h6>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="police_clearance_issue" class="form-label">Issue date</label>
+                                        <div class="d-flex">
+                                            <input type="date" max="{{ date('Y-m-d') }}" class="form-control"
+                                                name="police_clearance_issue" id="police_clearance_issue"
+                                                value="{{ $member->police_clearance_issue }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-8 d-flex" id="police_clearanc">
+
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="religion" class="form-label">Police Case/Punishment
+                                        Record <sup style="color:red">★</sup></label>
+                                    {{ html()->select('punishment_record', ['' => 'Select', 'yes' => 'Yes', 'no' => 'No'], old('punishment_record'))->class('form-control') }}
+                                    @if ($errors->has('punishment_record'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('punishment_record') }}</small>
+                                        </p>
+                                    @endif
+                                </div>
+
+
                                 <div class="col-md-12 bg-light text-justify mt-2 p-1 mb-2 px-4">
-                                    <h6>Add New Attachment:</h6>
+                                    <h6>New Attachment:</h6>
                                 </div>
 
                                 <div class="col-md-4 col-sm-12">
                                     <label for="police_clearance" class="form-label">Police Clearance Copy <br> <small
                                             style="font-size:12px;">(jpg, jpeg, doc, docx, pdf)</small></label>
-                                    <input type="file" class="form-control" name="police_clearance"
+                                    <input type="file" class="form-control dropify" name="police_clearance"
                                         id="police_clearance">
                                     @if ($errors->has('police_clearance'))
                                         <p class="text-danger">
@@ -394,7 +471,7 @@
                                         <label for="passport_photocopy" class="form-label">Passport
                                             photocopy: <br> <small style="font-size:12px;">(jpg, jpeg, doc, docx,
                                                 pdf)</small></label>
-                                        <input type="file" class="form-control" name="passport_photocopy"
+                                        <input type="file" class="form-control dropify" name="passport_photocopy"
                                             id="passport_photocopy">
                                         @if ($errors->has('passport_photocopy'))
                                             <p class="text-danger">
@@ -409,7 +486,7 @@
                                         <label for="job_exprince_certificate" class="form-label">Job exprince
                                             certificate: <br> <small style="font-size:12px;">(jpg, jpeg, doc, docx,
                                                 pdf)</small></label>
-                                        <input type="file" class="form-control" name="job_exprince_certificate"
+                                        <input type="file" class="form-control dropify" name="job_exprince_certificate"
                                             id="job_exprince_certificate">
                                         @if ($errors->has('job_exprince_certificate'))
                                             <p class="text-danger">
@@ -418,13 +495,25 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="all_attachment" class="form-label">All Attachment
+                                        copy: <small style="font-size:12px;">(PDF only)</small></label>
+                                    <input type="file" class="form-control dropify" name="all_attachment"
+                                        id="all_attachment">
+                                    @if ($errors->has('all_attachment'))
+                                        <p class="text-danger">
+                                            <small>{{ $errors->first('all_attachment') }}</small>
+                                        </p>
+                                    @endif
+                                </div>
                             </div>
                         </x-slot>
 
                         <x-slot name="footer">
-                            <button class="btn btn-success" type="submit">@lang('Update')</button>
-                            <a href="{{ route('admin.member.index') }}" class="btn btn-danger"
+                            <a href="{{ route('admin.member.index') }}" class="btn btn-lg btn-danger"
                                 type="reset">@lang('Cancel')</a>
+                            <button class="btn btn-lg btn-success" type="submit">@lang('Update')</button>
 
                         </x-slot>
 
@@ -437,7 +526,7 @@
                             <h3 class="card-title">Image Add</h3>
                         </div>
                         <div class="card-body p-3">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="gender" id="" value="male"
                                         {{ $member->gender == 'male' ? 'checked' : '' }}>
@@ -448,7 +537,7 @@
                                         {{ $member->gender == 'female' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="inlineRadio2">Female</label>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
                                 <div class="card-title col text-bold">Profile image</div>
                             </div> <!-- row -->
@@ -503,6 +592,19 @@
                                                 <i class="fas fa-3x fa-file-pdf"></i>
                                                 <?php $value = pathinfo($member->job_exprince_certificate, PATHINFO_EXTENSION); ?>
                                                 <p>{{ 'Job exprince', '.' . $value }}
+                                                </p>
+                                            </a>
+                                        </label>
+                                    </div>
+                                @endif
+
+                                @if ($member->all_attachment)
+                                    <div class="attached-group attached-group d-inline mb-2 mr-2">
+                                        <label class="text-muted">
+                                            <a href="{{ asset('uploads/users/' . $member->all_attachment) }}" download>
+                                                <i class="fas fa-3x fa-file-pdf"></i>
+                                                <?php $value = pathinfo($member->all_attachment, PATHINFO_EXTENSION); ?>
+                                                <p>{{ 'All doc', '.' . $value }}
                                                 </p>
                                             </a>
                                         </label>

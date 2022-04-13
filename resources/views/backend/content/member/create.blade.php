@@ -538,9 +538,9 @@ $required = html()
 
                         <div class="col-md-12 mt-4">
                             <div class="form-group mt-2">
-                                <button class="btn btn-success" type="submit">@lang('Create')</button>
-                                <a href="{{ route('admin.member.index') }}" class="btn btn-danger"
+                                <a href="{{ route('admin.member.index') }}" class="btn btn-lg btn-danger"
                                     type="reset">@lang('Cancel')</a>
+                                <button class="btn btn-lg btn-success" type="submit">@lang('Create')</button>
                             </div>
                         </div>
                     </div>

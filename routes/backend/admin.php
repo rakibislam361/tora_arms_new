@@ -19,7 +19,7 @@ use App\Http\Controllers\Backend\TransectionController;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 use App\Http\Controllers\Frontend\AgentController;
-use App\Http\Controllers\Frontend\MemberController;
+use App\Http\Controllers\Backend\MemberController;
 use App\Http\Controllers\Backend\UpazillaController;
 use App\Http\Controllers\Backend\ZipController;
 

@@ -33,7 +33,7 @@ class MemberController
   public function index(Request $request)
   {
     $status = Status::orderby('name', 'asc')->get();
-    return view('backend.content.member.index', compact('status'));
+    return view('frontend.pages.memberRegister', compact('status'));
   }
 
   /**
@@ -50,7 +50,7 @@ class MemberController
     $positions = Position::orderBy('position_name')
       ->pluck('position_name', 'id')
       ->prepend('All Positions', '');
-    return view('backend.content.member.create', compact('districts', 'thana_list', 'years', 'thana', 'positions'));
+    return view('frontend.pages.memberRegister', compact('districts', 'thana_list', 'years', 'thana', 'positions'));
   }
 
   public function store(Request $request)
@@ -127,7 +127,8 @@ class MemberController
 
       unset($data['name'], $data["email"], $data["phone"], $data["password"]);
 
-      $auth_agent = Agent::select('id')->where('user_id', Auth::user()->id)->first();
+      $auth_agent = Auth::user() ? Agent::select('id')->where('user_id', Auth::user()->id)->first() : null;
+
       $auth_agent_id = null;
       if (!empty($auth_agent)) {
         $auth_agent_id = $auth_agent->id;
@@ -179,7 +180,7 @@ class MemberController
     $member = Member::findOrFail($id);
     $degree_name = json_decode($member->degree_name) ?? [];
     $allStatus = Status::whereIn('status_for', ['both', 'member'])->get()->pluck('name', 'id');
-    return view('backend.content.member.show', compact('member', 'degree_name', 'allStatus'));
+    return view('frontend.pages.memberRegister', compact('member', 'degree_name', 'allStatus'));
   }
 
   public function update(Request $request, $id)

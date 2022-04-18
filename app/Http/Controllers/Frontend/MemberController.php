@@ -59,11 +59,18 @@ class MemberController
     $data = $request->validate([
       'name' => 'required|min:4|max:30',
       'phone' => 'required|unique:users,phone, phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:11',
-      'police_clearance_issue' => 'required',
+      'police_clearance_issue' => 'nullable',
+      'email' => 'nullable|email',
+      'password' => 'nullable|confirmed'
     ]);
 
-    $data['email'] = $request->phone . "@msrecruitingbd.com";
-    $data['password'] = "msaccount";
+    if ($request->email == null) {
+      $data['email'] = $request->phone . "@trustoverseas.com.bd";
+    }
+
+    if ($request->password == null) {
+      $data['password'] = "secret";
+    }
 
     $member += $data;
     if (!empty($request->file('image'))) {
@@ -391,7 +398,7 @@ class MemberController
 
       'job_exprince_certificate.*' => 'nullable|file|max:1000',
       'passport_photocopy'        => 'nullable|file|max:1000',
-      'all_attachment'        => 'nullable|file|max:1000',
+      'all_attachment'        => 'nullable|file',
     ]);
     return $data;
   }

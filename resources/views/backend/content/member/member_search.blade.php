@@ -12,11 +12,17 @@
         <x-slot name="body">
             <div class="report-params p-3" style="border: solid #d9d9d9 3px;">
                 <form action="{{ route('admin.member.search') }}" method="GET">
-                    <div class="row justify-content-center">
+                    <div class="row">
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 {{ html()->label('District')->class('form-label')->for('district_permanent') }}
                                 {{ html()->select('district_permanent', collect($districts)->prepend('All district', ''), request('district_permanent'))->class('form-control') }}
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="form-group">
+                                {{ html()->label('Position Desired')->class('form-label')->for('position_desierd') }}
+                                {{ html()->select('position_desierd', $positions, request('position_desierd'))->class('form-control') }}
                             </div>
                         </div>
 
@@ -36,18 +42,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 {{ html()->label('Status')->class('form-label')->for('status') }}
-                                <div class="d-flex">
-                                    {{ html()->select('status', collect($allStatus)->prepend('All', ''), request('status'))->class('form-control') }}
-                                    <div class="col-md-4">
-                                        <button type="submit" name="next" class="btn btn-primary">
-                                            <i class="fa fa-search" aria-hidden="true"></i> Search
-                                        </button>
-                                    </div>
-                                </div>
-
+                                {{ html()->select('status', collect($allStatus)->prepend('All', ''), request('status'))->class('form-control') }}
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="form-group">
+                                {{ html()->label('From Date')->class('form-label')->for('from_date') }}
+                                {{ html()->date('from_date', now(), request('from_date'))->class('form-control') }}
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="form-group">
+                                {{ html()->label('To Date')->class('form-label')->for('to_date') }}
+                                {{ html()->date('to_date', now(), request('to_date'))->class('form-control') }}
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="form-group">
+                                <label class="invisible">Submit</label>
+                                <button type="submit" name="next" class="btn btn-block btn-primary">
+                                    <i class="fa fa-search" aria-hidden="true"></i> Search
+                                </button>
                             </div>
                         </div>
 
@@ -76,7 +94,9 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>District</th>
+                            <th class="text-nowrap">Position</th>
                             <th>Status</th>
+                            <th class="text-nowrap">Apply Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -89,11 +109,11 @@
                                 <td><a
                                         href="{{ route('admin.member.show', $member->id) }}">{{ $member->record_id }}</a>
                                 </td>
-                                <td>{{ $member->user->name ?? 'N/A' }}
+                                <td class="text-nowrap">{{ $member->user->name ?? 'N/A' }}
                                 </td>
                                 <td>{{ $member->user->email ?? 'N/A' }}</td>
                                 <td>{{ $member->districtPermanent->name ?? 'N/A' }}</td>
-                                {{-- <td>{{ $member->position->position_name ?? 'N/A' }}</td> --}}
+                                <td>{{ $member->position->position_name ?? 'N/A' }}</td>
                                 {{-- <td>{{ $member->age ?? 'N/A' }}</td> --}}
                                 <td>
                                     @if ($member->statusGet)
@@ -102,6 +122,7 @@
                                         <span class="badge badge-primary">N/A</span>
                                     @endif
                                 </td>
+                                <td class="text-nowrap">{{ date('d-m-Y', strtotime($member->created_at)) }}</td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         @if ($logged_in_user->hasAllAccess())
@@ -140,9 +161,9 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>District</th>
+                        <th>Position</th>
                         <th>Status</th>
-                        {{-- <th>Position Desired</th> --}}
-                        {{-- <th>Age</th> --}}
+                        <th class="text-nowrap">Apply Date</th>
                         <th>Action</th>
                     </tfoot>
                 </table>

@@ -60,11 +60,11 @@ class MemberController extends controller
         $data = $request->validate([
             'name' => 'required|min:4|max:30',
             'phone' => 'required|unique:users,phone, phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:11',
-            'police_clearance_issue' => 'required',
+            'police_clearance_issue' => 'nullable',
         ]);
 
-        $data['email'] = $request->phone . "@msrecruitingbd.com";
-        $data['password'] = "msaccount";
+        $data['email'] = $request->phone . "@trustoverseas.com.bd";
+        $data['password'] = "secret";
 
         $member += $data;
         if (!empty($request->file('image'))) {
@@ -256,6 +256,9 @@ class MemberController extends controller
         $status = request('status');
         $district = request('district_permanent');
         $gender = request('gender');
+        $position_desierd = request('position_desierd');
+        $from_date = request('from_date');
+        $to_date = request('to_date');
         $districts = districts();
         $members = [];
 
@@ -267,7 +270,18 @@ class MemberController extends controller
         }
 
 
-        if ($status || $district || $gender) {
+        if ($position_desierd || $from_date || $to_date || $status || $district || $gender) {
+            if ($position_desierd) {
+                $members = $members->where('position_desierd', $position_desierd);
+              }
+            if ($from_date) {
+                $from_date = Carbon::parse($from_date)->startOfDay()->toDateTimeString();
+                $members = $members->where('created_at', '>=', $from_date);
+            }
+            if ($to_date) {
+                $to_date = Carbon::parse($from_date)->endOfDay()->toDateTimeString();
+                $members = $members->where('created_at', '<=', $to_date);
+            }
             if ($status) {
                 $members = $members->where('status', $status);
             }
@@ -393,7 +407,7 @@ class MemberController extends controller
 
             'job_exprince_certificate.*' => 'nullable|file|max:1000',
             'passport_photocopy'        => 'nullable|file|max:1000',
-            'all_attachment'        => 'nullable|file|max:1000',
+            'all_attachment'        => 'nullable|file',
         ]);
         return $data;
     }

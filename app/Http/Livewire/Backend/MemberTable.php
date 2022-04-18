@@ -86,6 +86,9 @@ class MemberTable extends DataTableComponent
                     $member_id = $value;
                     return $member_id;
                 }),
+                 Column::make(__('Name'), 'user.name')
+                ->addClass('text-center')
+                ->searchable(),
             Column::make(__('Email'), 'user.email')
                 ->addClass('text-center')
                 ->searchable(),
@@ -95,17 +98,17 @@ class MemberTable extends DataTableComponent
             Column::make(__('District'), 'districtPresent.name')
                 ->addClass('text-center')
                 ->searchable(),
-            Column::make(__('P.Clearance'), 'status')
-                ->addClass('text-center')
-                ->searchable()
-                ->format(function ($row) {
-                    $remaining_date = police_clearance_remaining_date($row->police_clearance_issue);
-                    if ($remaining_date > 0) {
-                        return '<span class="badge badge-warning">' . $remaining_date . ' ' . 'days' . '</span>';
-                    }
-                    return '<span class="badge badge-danger">Clearance Expired</span>';
-                })
-                ->asHtml(),
+            // Column::make(__('P.Clearance'), 'status')
+            //     ->addClass('text-center')
+            //     ->searchable()
+            //     ->format(function ($row) {
+            //         $remaining_date = police_clearance_remaining_date($row->police_clearance_issue);
+            //         if ($remaining_date > 0) {
+            //             return '<span class="badge badge-warning">' . $remaining_date . ' ' . 'days' . '</span>';
+            //         }
+            //         return '<span class="badge badge-danger">Clearance Expired</span>';
+            //     })
+            //     ->asHtml(),
             Column::make(__('Status'), 'status')
                 ->addClass('text-center')
                 ->searchable()

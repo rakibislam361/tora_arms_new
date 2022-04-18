@@ -96,50 +96,19 @@
             });
             setProgressBar(--current);
         })
-        .on('change', "#police_clearance_issue", function () {
-            var issue_date = new Date($("#police_clearance_issue").val());
-            var nextDate = new Date(issue_date.setDate(issue_date.getDate() + 180));
-            const today = new Date();
-            const time = Math.abs(today - nextDate);
-
-            const day = Math.ceil(time / (1000 * 60 * 60 * 24));
-
-            nextDate = `${nextDate.getDate()} ${nextDate.toLocaleString('default', { month: 'long' })} ${nextDate.getFullYear()}`;
-
-            var fields = `<div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="clearance_expire_date" class="form-label">Expire date</label>
-                                <input type="text" class="form-control" name="police_clearance_expired"
-                                    id="clearance_expire_date" value="${nextDate}" readonly>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="clearance_remaining" class="form-label">Remaining day</label>
-                                <input type="text" class="form-control" name="polisce_clearance_remaning"
-                                    id = "police_clearance"
-                                    value = "${day}"
-                                    readonly >
-                            </div>
-                        </div>`;
-
-            $("#police_clearanc").html(fields);
-
-        })
         .on('change', '#same_as', function () {
-            var village = $("#village_present").val();
-            var post = $("#post_office_present").val();
-            var district = $("#district_present").val();
-            var policestation = $("#police_station_present").html();
+            var village = $("#village_permanent").val();
+            var post = $("#post_office_permanent").val();
+            var district = $("#district_permanent").val();
+            var polistation = $("#police_station_permanent").html();
 
-            $("#village_permanent").val(village);
-            $("#post_office_permanent").val(post);
-            $("#district_permanent").val(district);
-            $("#police_station_permanent").html(policestation);
-            $("#police_station_permanent").val($("#police_station_permanent").val());
+            $("#village_present").val(village);
+            $("#post_office_present").val(post);
+            $("#district_present").val(district);
+            $("#police_station_present").html(polistation);
+            $("#police_station_present").val($("#police_station_permanent").val());
         })
-        .on("keyup", '.phon_validation', function () {
+        .on("keyup", '#phon_validation', function () {
             var valid = /^\d{0,11}(\.\d{0,2})?$/.test(this.value),
                 val = this.value;
 
@@ -150,16 +119,14 @@
         })
         .on("click", ".education_fields", function () {
             div_id++;
-            var rdiv = 'removeclass' + div_id;
-            $('#education_fields').append(`
-                <div class="row ${rdiv}">
-                    <div class="col-md-4">
+            $("#education_option").append(`<div class="row mb-3 px-4" id="${div_id}">
+                    <div class="col-md-4 col-sm-12">
                         <input type="text" class="form-control" name="degree_name[]" placeholder="Degree name">
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <div class="form-group">
                             <input type="text" class="form-control" name="grade[]" id="grade" value=""
-                                placeholder="4.5 ">
+                                placeholder="4.5">
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-12">
@@ -177,7 +144,7 @@
         })
         .on("click", ".remove_div", function () {
             var div_id = $(this).val();
-            $('.removeclass' + div_id).remove();
+            $(div_id).remove();
         });
 
     function setProgressBar(curStep) {

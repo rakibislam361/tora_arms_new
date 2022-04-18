@@ -40,6 +40,7 @@
                             </div>
                         </div> --}}
 
+
              <div class="col-md-4 col-sm-12">
                  <div class="form-group">
                      <label for="father_name" class="form-label">Father's name <sup style="color:red">★</sup></label>
@@ -114,8 +115,7 @@
              </div>
 
              <div class="col-md-4 col-sm-12">
-                 <label for="nid_no" class="form-label">NID no: / Birth certificate <sup
-                         style="color:red">★</sup></label>
+                 <label for="nid_no" class="form-label">NID no: / Birth certificate </label>
                  <input type="number" class="form-control" name="nid_no" id="nid_no"
                      value="{{ old('nid_no'), get_step_value('step1', 'nid_no') }}" placeholder="NID">
                  @if ($errors->has('nid_no'))
@@ -349,7 +349,14 @@
 
              <div class="col-md-4 col-sm-12">
                  <label for="degree_name" class="form-label">Degree Name</label>
-                 <input type="text" class="form-control" name="education[0][degree_name]" placeholder="Degree name">
+                 {{-- <input type="text" class="form-control" name="education[0][degree_name]" placeholder="Degree name"> --}}
+                 <select class="form-control" name="education[0][degree_name]" id="">
+                     <option defoult> Select</option>
+                     <option value="ssc">SSC</option>
+                     <option value="hsc">HSC</option>
+                     <option value="honours">Honours</option>
+                     <option value="others">Others</option>
+                 </select>
                  @if ($errors->has('degree_name'))
                      <p class="text-danger">
                          <small>{{ $errors->first('degree_name') }}</small>
@@ -413,8 +420,7 @@
              <div class="col-md-12 bg-light text-justify mt-4 mb-4">
                  <label class="mt-1">Police Clearance details</h6>
              </div>
-
-             <div class="col-md-4 col-sm-12">
+             {{-- <div class="col-md-4 col-sm-12">
                  <div class="form-group">
                      <label for="police_clearance_issue" class="form-label">Issue date</label>
                      <div class="d-flex">
@@ -428,7 +434,7 @@
 
              <div class="col-md-8 d-flex" id="police_clearanc">
 
-             </div>
+             </div> --}}
 
              <div class="col-md-4 col-sm-12">
                  <label for="religion" class="form-label">Police Case/Punishment
@@ -442,7 +448,7 @@
              </div>
 
              <div class="col-md-12 bg-light text-justify mt-4 mb-4">
-                 <label class="mt-1">Attachment</h6>
+                 <label class="mt-1">Attachment</label>
              </div>
 
              <div class="col-md-4 col-sm-12">
@@ -499,12 +505,51 @@
                  @endif
              </div>
 
-             <div class="col-md-12 mt-4">
-                 <div class="form-group mt-2">
-                     <button class="btn btn-success" type="submit">@lang('Create')</button>
-                     <a href="{{ route('admin.member.index') }}" class="btn btn-danger"
-                         type="reset">@lang('Cancel')</a>
+             <div class="col-md-12 bg-light text-justify mt-4 mb-4">
+                 <label class="mt-1">Create account</label>
+             </div>
+
+             <div class="col-md-4 col-sm-12">
+                 <label for="email" class="form-label">Email Address <sup style="color:red">★</sup></label>
+                 <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"
+                     placeholder="Email Address">
+                 @if ($errors->has('email'))
+                     <p class="text-danger">
+                         <small>{{ $errors->first('email') }}</small>
+                     </p>
+                 @endif
+             </div>
+
+             <div class="col-md-4 col-sm-12">
+                 <label for="password" class="form-label">Password <small>(at least 8
+                         character)</small></label>
+                 <input type="password" name="password" class="form-control" id="password"
+                     value="{{ old('password') }}" placeholder="Password">
+                 @if ($errors->has('password'))
+                     <p class="text-danger">
+                         <small>{{ $errors->first('password') }}</small>
+                     </p>
+                 @endif
+             </div>
+
+             <div class="col-md-4 col-sm-12">
+                 <div class="form-group">
+                     <label class="form-label" for="password_confirmation">Confirm
+                         Password</label>
+                     <input type="password" name="password_confirmation" class="form-control"
+                         value="{{ old('password_confirmation') }}" id="password_confirmation"
+                         placeholder="Confirm Password">
+                     @if ($errors->has('password_confirmation'))
+                         <p class="text-danger">
+                             <small>{{ $errors->first('password_confirmation') }}</small>
+                         </p>
+                     @endif
                  </div>
+             </div>
+         </div>
+         <div class="row mb-4 px-4 justify-content-center">
+             <div class="col-md-4 col-md-12">
+                 <button class="col-md-2 btn btn-primary float-right" type="submit" value="Submit">Submit</button>
              </div>
          </div>
      </div> <!-- .col-md-9 -->

@@ -145,8 +145,7 @@ $required = html()
                         </div>
 
                         <div class="col-md-4 col-sm-12">
-                            <label for="nid_no" class="form-label">NID no: / Birth certificate <sup
-                                    style="color:red">★</sup></label>
+                            <label for="nid_no" class="form-label">NID no: / Birth certificate</label>
                             <input type="number" class="form-control" name="nid_no" id="nid_no"
                                 value="{{ old('nid_no'), get_step_value('step1', 'nid_no') }}" placeholder="NID">
                             @if ($errors->has('nid_no'))
@@ -384,9 +383,19 @@ $required = html()
                         </div>
 
                         <div class="col-md-4 col-sm-12">
-                            <label for="degree_name" class="form-label">Degree Name</label>
-                            <input type="text" class="form-control" name="education[0][degree_name]"
-                                placeholder="Degree name">
+                            <div class="form-froup">
+                                <label for="degree_name" class="form-label">Degree Name</label>
+                                {{-- {{ html()->select('education[0][degree_name]',['' => 'Select', 'ssc' => 'SSC', 'hsc' => 'HSC', 'honours' => 'Honours', 'others' => 'Others'],old('education[0][degree_name]'))->class('form-control') }} --}}
+
+                                <select class="form-control" name="education[0][degree_name]" id="">
+                                    <option defoult> Select</option>
+                                    <option value="ssc">SSC</option>
+                                    <option value="hsc">HSC</option>
+                                    <option value="honours">Honours</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+
                             @if ($errors->has('degree_name'))
                                 <p class="text-danger">
                                     <small>{{ $errors->first('degree_name') }}</small>
@@ -448,10 +457,10 @@ $required = html()
                         </div>
 
                         <div class="col-md-12 bg-light text-justify mt-4 mb-4">
-                            <label class="mt-1">Police Clearance details</h6>
+                            <label class="mt-1">Police Clearance</h6>
                         </div>
 
-                        <div class="col-md-4 col-sm-12">
+                        {{-- <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="police_clearance_issue" class="form-label">Issue date</label>
                                 <div class="d-flex">
@@ -465,7 +474,7 @@ $required = html()
 
                         <div class="col-md-8 d-flex" id="police_clearanc">
 
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-4 col-sm-12">
                             <label for="religion" class="form-label">Police Case/Punishment
@@ -633,7 +642,13 @@ $required = html()
             var rdiv = 'removeclass' + option;
             divtest.innerHTML =
                 `<div class="col-md-4 col-sm-12">
-                        <input type="text" class="form-control" name="education[${option}][degree_name]" placeholder="Degree name">
+                    <select class="form-control" name="education[${option}][degree_name]" id="">
+                        <option defoult> Select</option>
+                        <option value="ssc">SSC</option>
+                        <option value="hsc">HSC</option>
+                        <option value="honours">Honours</option>
+                        <option value="others">Others</option>
+                    </select>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <div class="form-group">

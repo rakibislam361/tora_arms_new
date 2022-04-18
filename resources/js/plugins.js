@@ -85,17 +85,11 @@
                                 text: res.msg,
                             });
                             button.closest("tr").remove();
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 1000);
                         } else {
                             Swal.fire({
                                 icon: res.icon,
                                 text: res.msg,
                             });
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 1000);
                         }
                     });
                 }
@@ -140,9 +134,9 @@
         "shown.bs.tab",
         function (e) {
             let hash = $(e.target).attr("href");
-            history.pushState ?
-                history.pushState(null, null, hash) :
-                (location.hash = hash);
+            history.pushState
+                ? history.pushState(null, null, hash)
+                : (location.hash = hash);
         }
     );
 

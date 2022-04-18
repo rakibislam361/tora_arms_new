@@ -14,7 +14,7 @@
                         @csrf
                         <input type="hidden" name="step" class="next action-button" value="2" />
                         <fieldset>
-                            <div class="card">
+                            <div class="card" style="margin-bottom: 5%;">
                                 @include('frontend.pages.formMember.step-one')
                             </div>
                         </fieldset>
@@ -36,7 +36,13 @@
             var rdiv = 'removeclass' + option;
             divtest.innerHTML =
                 `<div class="col-md-4 col-sm-12">
-                        <input type="text" class="form-control" name="education[${option}][degree_name]" placeholder="Degree name">
+                     <select class="form-control" name="education[${option}][degree_name]" id="">
+                        <option defoult> Select</option>
+                        <option value="ssc">SSC</option>
+                        <option value="hsc">HSC</option>
+                        <option value="honours">Honours</option>
+                        <option value="others">Others</option>
+                    </select>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <div class="form-group">

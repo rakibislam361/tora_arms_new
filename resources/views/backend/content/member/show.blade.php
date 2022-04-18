@@ -42,8 +42,8 @@
                                 <td>Name</td>
                                 <td>:</td>
                                 <td>
-                                    First name : {{ $member->first_name ?? 'N/A' }}<br>
-                                    Last name : {{ $member->last_name ?? 'N/A' }}<br>
+                                    <!--First name : {{ $member->first_name ?? 'N/A' }}<br>-->
+                                    <!--Last name : {{ $member->last_name ?? 'N/A' }}<br>-->
                                     Full name : {{ $member->user->name ?? 'N/A' }}
                                 <td>Sex : {{ $member->gender }}</td>
                                 </td>
@@ -62,9 +62,9 @@
                             </tr>
                             <tr>
                                 <td>4.</td>
-                                <td>Marital Status</td>
+                                <td>Desire position</td>
                                 <td>:</td>
-                                <td colspan="2">{{ $member->marital_status ?? 'N/A' }}
+                                <td colspan="2">{{ $member->position->position_name ?? 'N/A' }}
                                 </td>
                             </tr>
                             <tr>
@@ -118,21 +118,21 @@
 
                                 </td>
                             </tr>
-                            <tr>
-                                <td>10.</td>
-                                <td>Police Clearance</td>
-                                <td>:</td>
-                                <td colspan="2">
-                                    Issue Date :
-                                    {{ date('j F Y', strtotime($member->police_clearance_issue)) ?? 'N/A' }}<br>
-                                    Expiry Date : {{ $member->police_clearance_expired ?? 'N/A' }}<br>
-                                    Remaining Day =
-                                    {{ police_clearance_remaining_date($member->police_clearance_issue) . ' ' . 'days' }}
-                                </td>
-                            </tr>
+                            <!--<tr>-->
+                            <!--    <td>10.</td>-->
+                            <!--    <td>Police Clearance</td>-->
+                            <!--    <td>:</td>-->
+                            <!--    <td colspan="2">-->
+                            <!--        Issue Date :-->
+                            <!--        {{ date('j F Y', strtotime($member->police_clearance_issue)) ?? 'N/A' }}<br>-->
+                            <!--        Expiry Date : {{ $member->police_clearance_expired ?? 'N/A' }}<br>-->
+                            <!--        Remaining Day =-->
+                            <!--        {{ police_clearance_remaining_date($member->police_clearance_issue) . ' ' . 'days' }}-->
+                            <!--    </td>-->
+                            <!--</tr>-->
 
                             <tr>
-                                <td style="width: 2%;">11.</td>
+                                <td style="width: 2%;">10.</td>
                                 <td style="width: 30%">Elementary</td>
                                 <td style="width: 2%">:</td>
                                 <td colspan="2">
